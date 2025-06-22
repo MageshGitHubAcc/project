@@ -4,6 +4,9 @@
             <i class="fas fa-arrow-left"></i>
         </button>
 
+
+        <div class="counter">Photos {{currentIndex + 1}}/{{images.length}}</div>
+
     </div>
     <div class="gallery-slider">
         <div #sliderTrack class="slider-track" [style.transform]="'translateX(' + translateX + '%)'"
@@ -13,23 +16,25 @@
                     <img [src]="image" alt="Gallery image" draggable="false">
                 </div>
             </div>
+
         </div>
+        <div class="pagination-dots">
+            <button *ngFor="let image of images; let i = index" class="dot" [class.active]="i === currentIndex"
+                [class.partially-active]="getMath().abs(i - exactPosition) < 0.5 && i !== currentIndex"
+                (click)="goTo(i)" [attr.aria-label]="'Go to slide ' + (i + 1)"></button>
+        </div>
+
     </div>
 
-    <div class="counter">Photos {{currentIndex + 1}}/{{images.length}}</div>
 
-    <div class="pagination-dots">
-        <button *ngFor="let image of images; let i = index" class="dot" [class.active]="i === currentIndex"
-            [class.partially-active]="getMath().abs(i - exactPosition) < 0.5 && i !== currentIndex" (click)="goTo(i)"
-            [attr.aria-label]="'Go to slide ' + (i + 1)"></button>
-    </div>
+
 
     <!-- Navigation Arrows -->
-    <button class="nav-arrow prev" (click)="prev()" [disabled]="currentIndex === 0">
+    <!-- <button class="nav-arrow prev" (click)="prev()" [disabled]="currentIndex === 0">
         &lt;
     </button>
     <button class="nav-arrow next" (click)="next()" [disabled]="currentIndex === images.length - 1">
         &gt;
-    </button>
+    </button> -->
 
 </div>
